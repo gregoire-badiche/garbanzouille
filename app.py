@@ -8,8 +8,15 @@ import time
 # Pour effectuer des commandes comme clear / cls (efface la console) ou pour redimmentionner le terminal
 import os
 
-# Pour détecter les keypress (natif sous windows)
-import msvcrt
+# Détection de l'OS
+from platform import system as systemType
+# Si c'est un Windows
+if(systemType == "Windows"):
+    # Pour détecter les keypress (natif sous windows)
+    import msvcrt
+else:
+    # Sinon on utilise pynput
+    import pynput
 
 """
 Les objets du code (on fait de la POO ici ou quoi)
