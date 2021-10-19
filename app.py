@@ -168,3 +168,5 @@ if __name__ == "__main__":
         os.system("mode con cols=54 lines=22")
     # On crée une nouvelle partie
     game = Game()
+
+#test :D
