@@ -17,3 +17,5 @@ atteindre le cube au coin de l'écran, passage à un autre niveau sans transitio
 si échec, retour au niveau d'avant.
 
 graphismes : noir & blanc / rétro ???
+
+Partie Project pour faire des messages
