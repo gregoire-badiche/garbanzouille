@@ -19,3 +19,5 @@ si échec, retour au niveau d'avant.
 graphismes : noir & blanc / rétro ???
 
 Partie Project pour faire des messages
+
+press up and down arrows 
