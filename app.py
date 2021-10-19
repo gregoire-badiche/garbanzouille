@@ -164,6 +164,7 @@ class Game:
 # Si l'OS et Python sont prêt à lancer le jeu
 if __name__ == "__main__":
     # On redimentionne la console
-    os.system("mode con cols=54 lines=22")
+    if(systemType == "Windows"):
+        os.system("mode con cols=54 lines=22")
     # On crée une nouvelle partie
     game = Game()
