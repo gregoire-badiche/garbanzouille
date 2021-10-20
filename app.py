@@ -29,6 +29,9 @@ class Player:
         self.cooX = 0
         self.cooY = -1
         self.area = area
+        self.char = "O"
+        self.counter = 0
+
         self.update("down")
 
     def update(self, key):
@@ -49,6 +52,8 @@ class Player:
 
             # On redessine le joueur aux nouvelles coordonnées
             self.area[self.cooY][self.cooX] = "O"
+            self.char = "O"
+            self.counter = 0
 
         # Si la touche est down (touche flechée vers le bas)
         elif(key == "down" and self.cooY + 1 < len(self.area)):
@@ -61,6 +66,8 @@ class Player:
 
             # On redessine le joueur aux nouvelles coordonnées
             self.area[self.cooY][self.cooX] = "O"
+            self.char = "O"
+            self.counter = 0
         
         elif(key == "left" and self.cooX - 1 >= 0):
 
@@ -72,6 +79,8 @@ class Player:
 
             # On redessine le joueur aux nouvelles coordonnées
             self.area[self.cooY][self.cooX] = "O"
+            self.char = "O"
+            self.counter = 0
         
         elif(key == "right" and self.cooX + 1 < len(self.area[0])):
 
@@ -83,6 +92,19 @@ class Player:
 
             # On redessine le joueur aux nouvelles coordonnées
             self.area[self.cooY][self.cooX] = "O"
+            self.char = "O"
+            self.counter = 0
+        
+        else:
+            self.counter += 1
+            if(self.counter % 5 == 0):
+                if(self.char == "O"):
+                    self.char = "o"
+                else:
+                    self.char = "O"
+                self.area[self.cooY][self.cooX] = self.char
+
+
 
 class Game:
     """
@@ -116,6 +138,7 @@ class Game:
         Fonction principale, contenant la boucle principale
         """
 
+        # On dessine une première fois le jeu
         self.draw()
 
         # Tant que isRunning est True
@@ -124,12 +147,12 @@ class Game:
             key = window.getKeyPress()
 
             # # Si une touche a été pressée
-            if(key != ""):
+            #if(key != ""):
             # On update le joueur
-                self.player.update(key)
-                window.clear()
-                # On dessine le jeu dans la console
-                self.draw()
+            self.player.update(key)
+            window.clear()
+            # On dessine le jeu dans la console
+            self.draw()
             # Et on attend pour éviter de surcharger le processeur
             time.sleep(0.1)
     
