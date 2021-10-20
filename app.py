@@ -21,14 +21,17 @@ class Player:
     """
     L'objet 'joueur'
     """
-    def __init__(self):
+    def __init__(self, area):
         """
         Mise en place des variables
         """
         # Coordonnées (en y) du joueur
-        self.coo = 0
+        self.cooX = 0
+        self.cooY = -1
+        self.area = area
+        self.update("down")
 
-    def update(self, key, area):
+    def update(self, key):
         """
         Bouge le joueur si besoin
         key est la touche pressée (up / down...)
@@ -36,32 +39,54 @@ class Player:
         """
 
         # Si la touche est up (touche flechée vers le haut)
-        if(key == "up"):
+        if(key == "up" and self.cooY - 1 >= 0):
 
             # On supprime sur le jeu les caractères du joueur
-            for i in range(3):
-                area[(self.coo + i) % len(area)][0] = " "
+            self.area[self.cooY][self.cooX] = " "
 
             # On change la position
-            self.coo -= 1
+            self.cooY -= 1
 
             # On redessine le joueur aux nouvelles coordonnées
             for i in range(3):
-                area[(self.coo + i) % len(area)][0] = "|"
+                self.area[self.cooY][self.cooX] = "O"
 
         # Si la touche est down (touche flechée vers le bas)
-        elif(key == "down"):
+        elif(key == "down" and self.cooY + 1 < len(self.area)):
 
             # On supprime sur le jeu les caractères du joueur
-            for i in range(3):
-                area[(self.coo + i) % len(area)][0] = " "
+            self.area[self.cooY][self.cooX] = " "
 
             # On change la position
-            self.coo += 1
+            self.cooY += 1
 
             # On redessine le joueur aux nouvelles coordonnées
             for i in range(3):
-                area[(self.coo + i) % len(area)][0] = "|"
+                self.area[self.cooY][self.cooX] = "O"
+        
+        elif(key == "left" and self.cooX - 1 >= 0):
+
+            # On supprime sur le jeu les caractères du joueur
+            self.area[self.cooY][self.cooX] = " "
+
+            # On change la position
+            self.cooX -= 1
+
+            # On redessine le joueur aux nouvelles coordonnées
+            for i in range(3):
+                self.area[self.cooY][self.cooX] = "O"
+        
+        elif(key == "right" and self.cooX + 1 < len(self.area[0])):
+
+            # On supprime sur le jeu les caractères du joueur
+            self.area[self.cooY][self.cooX] = " "
+
+            # On change la position
+            self.cooX += 1
+
+            # On redessine le joueur aux nouvelles coordonnées
+            for i in range(3):
+                self.area[self.cooY][self.cooX] = "O"
 
 class Game:
     """
@@ -73,9 +98,6 @@ class Game:
         Mise en place des variables + démarage de la partie
         """
 
-        # Le joueur de la partie (on crée un nouvel objet de classe Player)
-        self.player = Player()
-
         # Variable qui sert à controler la boucle principale
         self.isRunning = True
 
@@ -86,6 +108,9 @@ class Game:
         for i in range(20):
             # Contenant un caractère de chacune des 20 colonnes
             self.area.append([" "]*50)
+        
+        # Le joueur de la partie (on crée un nouvel objet de classe Player)
+        self.player = Player(self.area)
 
         # Et on lance la partie
         self.play()
@@ -95,21 +120,22 @@ class Game:
         Fonction principale, contenant la boucle principale
         """
 
+        self.draw()
+
         # Tant que isRunning est True
         while self.isRunning:
-
             # On veut savoir quelle touche à été pressée ("up", "down" ou "")
             key = window.getKeyPress()
 
             # # Si une touche a été pressée
-            # if(key != ""):
+            if(key != ""):
             # On update le joueur
-            self.player.update(key, self.area)
-            window.clear()
-            # On dessine le jeu dans la console
-            self.draw()
+                self.player.update(key)
+                window.clear()
+                # On dessine le jeu dans la console
+                self.draw()
             # Et on attend pour éviter de surcharger le processeur
-            time.sleep(1)
+            time.sleep(0.1)
     
     def draw(self):
         """

@@ -22,3 +22,6 @@ class Handler:
 
 def resize(c, r):
     os.system("mode con cols=", c, " lines=", r)
+
+def clear():
+    os.system('cls')

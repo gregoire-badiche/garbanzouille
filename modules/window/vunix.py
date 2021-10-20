@@ -22,6 +22,10 @@ class Handler:
             return "up"
         elif(key == Key.down):
             return "down"
+        elif(key == Key.left):
+            return "left"
+        elif(key == Key.right):
+            return "right"
         else:
             return ""
 
