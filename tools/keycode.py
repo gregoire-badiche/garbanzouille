@@ -14,12 +14,10 @@ class WindowsListener:
 
 class PynputListener:
     def __init__(self):
-        with Listener(on_press=self.on_press, on_release=self.on_release) as self.listener:  # Create an instance of Listener
+        with Listener(on_press=self.on_press) as self.listener:  # Create an instance of Listener
             self.listener.join()
     def on_press(self, key):
         print(key)
-    def on_release(self, key):
-        pass
 
 
 if(systemType == "Windows"):

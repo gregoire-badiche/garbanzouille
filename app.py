@@ -1,4 +1,6 @@
 """
+Fichier principal du jeu
+
 Import des librairies
 """
 
@@ -8,15 +10,8 @@ import time
 # Pour effectuer des commandes comme clear / cls (efface la console) ou pour redimmentionner le terminal
 import os
 
-# Détection de l'OS
-from platform import system as systemType
-# Si c'est un Windows
-if(systemType == "Windows"):
-    # Pour détecter les keypress (natif sous windows)
-    import msvcrt
-else:
-    # Sinon on utilise pynput
-    import pynput
+# Import du module pour gérer le cross-platform
+import modules.window.window as window
 
 """
 Les objets du code (on fait de la POO ici ou quoi)
@@ -104,32 +99,17 @@ class Game:
         while self.isRunning:
 
             # On veut savoir quelle touche à été pressée ("up", "down" ou "")
-            key = self.getKey()
+            key = window.getKeyPress()
 
-            # Si une touche a été pressée
-            if(key != ""):
-                # On update le joueur
-                self.player.update(key, self.area)
-                # On dessine le jeu dans la console
-                self.draw()
+            # # Si une touche a été pressée
+            # if(key != ""):
+            # On update le joueur
+            self.player.update(key, self.area)
+            window.clear()
+            # On dessine le jeu dans la console
+            self.draw()
             # Et on attend pour éviter de surcharger le processeur
-            time.sleep(0.1)
-
-    def getKey(self):
-        """
-        Fonction qui permet de savoir quel touche a été pressée (sous Windows)
-        Le fonctionnement est un peu compliqué, venez me dm si vous voulez savoir
-        """
-        arrow = False
-        while(msvcrt.kbhit()):
-            key = msvcrt.getch()
-            if(key == b"\xe0"):
-                arrow = True
-            if(arrow == True and key == b"H"):
-                return 'up'
-            if(arrow == True and key == b"P"):
-                return 'down'
-        return ""
+            time.sleep(1)
     
     def draw(self):
         """
@@ -154,18 +134,11 @@ class Game:
             
             # Retour à la ligne (+ marge du dessous pour la dernière ligne)
             print("")
-            
-    def clear(self):
-        """
-        Commande du système pour effacer le contenu de la console. Sous Linux et Mac, c'est 'clear'
-        """
-        os.system("cls")
         
 # Si l'OS et Python sont prêt à lancer le jeu
 if __name__ == "__main__":
     # On redimentionne la console
-    if(systemType == "Windows"):
-        os.system("mode con cols=54 lines=22")
+    window.resize(54, 22)
     # On crée une nouvelle partie
     game = Game()
 
