@@ -48,8 +48,7 @@ class Player:
             self.cooY -= 1
 
             # On redessine le joueur aux nouvelles coordonnées
-            for i in range(3):
-                self.area[self.cooY][self.cooX] = "O"
+            self.area[self.cooY][self.cooX] = "O"
 
         # Si la touche est down (touche flechée vers le bas)
         elif(key == "down" and self.cooY + 1 < len(self.area)):
@@ -61,8 +60,7 @@ class Player:
             self.cooY += 1
 
             # On redessine le joueur aux nouvelles coordonnées
-            for i in range(3):
-                self.area[self.cooY][self.cooX] = "O"
+            self.area[self.cooY][self.cooX] = "O"
         
         elif(key == "left" and self.cooX - 1 >= 0):
 
@@ -73,8 +71,7 @@ class Player:
             self.cooX -= 1
 
             # On redessine le joueur aux nouvelles coordonnées
-            for i in range(3):
-                self.area[self.cooY][self.cooX] = "O"
+            self.area[self.cooY][self.cooX] = "O"
         
         elif(key == "right" and self.cooX + 1 < len(self.area[0])):
 
@@ -85,8 +82,7 @@ class Player:
             self.cooX += 1
 
             # On redessine le joueur aux nouvelles coordonnées
-            for i in range(3):
-                self.area[self.cooY][self.cooX] = "O"
+            self.area[self.cooY][self.cooX] = "O"
 
 class Game:
     """
