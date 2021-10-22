@@ -18,6 +18,10 @@ class Handler:
                 return 'up'
             if(arrow == True and key == b"P"):
                 return 'down'
+            if(arrow == True and key == b"K"):
+                return 'left'
+            if(arrow == True and key == b"M"):
+                return 'right'
         return ""
 
 def resize(c, r):
