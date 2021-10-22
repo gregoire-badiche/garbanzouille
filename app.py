@@ -22,11 +22,10 @@ Ces objets doivent être enregistrés dans le dossier "objets", avec l'extension
 """
 
 
-sys.path.append('objets')
-for i in sorted(os.listdir('objets')):
+sys.path.append('modules/objets')
+for i in sorted(os.listdir('modules/objets')):
     if not i.startswith('_'):
-        exec('from objets.%s import *' %(i[:-3]))
-        print('imported %s' %(i))
+        exec('from modules.objets.%s import *' %(i[:-3]))
 
 #Définition de la classe du jeu. Définir les autres classes dans le dossier modules/objets de préférence
 class Game:
