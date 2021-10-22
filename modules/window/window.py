@@ -4,7 +4,7 @@ Window event / commands handler
 
 from platform import system
 
-if(system == "Windows"):
+if(system() == "Windows"):
     # Pour détecter les keypress (natif sous windows)
     from modules.window.vwin import *
 else:
