@@ -20,7 +20,7 @@ class PynputListener:
         print(key)
 
 
-if(systemType == "Windows"):
+if(systemType() == "Windows"):
     # Pour détecter les keypress (natif sous windows)
     import msvcrt
     y = WindowsListener()
