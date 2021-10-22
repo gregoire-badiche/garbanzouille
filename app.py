@@ -10,102 +10,24 @@ import time
 # Pour effectuer des commandes comme clear / cls (efface la console) ou pour redimmentionner le terminal
 import os
 
+#Pour la gestion des modules
+import sys
+
 # Import du module pour gérer le cross-platform
 import modules.window.window as window
 
 """
-Les objets du code (on fait de la POO ici ou quoi)
+Importe tous les objets du code (on fait de la POO ici ou quoi)
+Ces objets doivent être enregistrés dans le dossier "objets", avec l'extension .py. Ils seront automatiquement détectés et importés.
 """
 
-class Player:
-    """
-    L'objet 'joueur'
-    """
-    def __init__(self, area):
-        """
-        Mise en place des variables
-        """
-        # Coordonnées (en y) du joueur
-        self.cooX = 0
-        self.cooY = -1
-        self.area = area
-        self.char = "O"
-        self.counter = 0
 
-        self.update("down")
+sys.path.append('modules/objets')
+for i in sorted(os.listdir('modules/objets')):
+    if not i.startswith('_'):
+        exec('from modules.objets.%s import *' %(i[:-3]))
 
-    def update(self, key):
-        """
-        Bouge le joueur si besoin
-        key est la touche pressée (up / down...)
-        area est un pointeur qui dirige vers la case mémoire de la liste contenant le jeu
-        """
-
-        # Si la touche est up (touche flechée vers le haut)
-        if(key == "up" and self.cooY - 1 >= 0):
-
-            # On supprime sur le jeu les caractères du joueur
-            self.area[self.cooY][self.cooX] = " "
-
-            # On change la position
-            self.cooY -= 1
-
-            # On redessine le joueur aux nouvelles coordonnées
-            self.area[self.cooY][self.cooX] = "O"
-            self.char = "O"
-            self.counter = 0
-
-        # Si la touche est down (touche flechée vers le bas)
-        elif(key == "down" and self.cooY + 1 < len(self.area)):
-
-            # On supprime sur le jeu les caractères du joueur
-            self.area[self.cooY][self.cooX] = " "
-
-            # On change la position
-            self.cooY += 1
-
-            # On redessine le joueur aux nouvelles coordonnées
-            self.area[self.cooY][self.cooX] = "O"
-            self.char = "O"
-            self.counter = 0
-        
-        elif(key == "left" and self.cooX - 1 >= 0):
-
-            # On supprime sur le jeu les caractères du joueur
-            self.area[self.cooY][self.cooX] = " "
-
-            # On change la position
-            self.cooX -= 1
-
-            # On redessine le joueur aux nouvelles coordonnées
-            self.area[self.cooY][self.cooX] = "O"
-            self.char = "O"
-            self.counter = 0
-        
-        elif(key == "right" and self.cooX + 1 < len(self.area[0])):
-
-            # On supprime sur le jeu les caractères du joueur
-            self.area[self.cooY][self.cooX] = " "
-
-            # On change la position
-            self.cooX += 1
-
-            # On redessine le joueur aux nouvelles coordonnées
-            self.area[self.cooY][self.cooX] = "O"
-            self.char = "O"
-            self.counter = 0
-        
-        else:
-            self.counter += 1
-            if(self.counter % 5 == 0):
-                if(self.char == "O"):
-                    self.char = "o"
-                else:
-                    self.char = "O"
-                self.area[self.cooY][self.cooX] = self.char
-
-
-
+#Définition de la classe du jeu. Définir les autres classes dans le dossier modules/objets de préférence
 class Game:
     """
     L'objet qui sert à gérer la zone de jeu, et le jeu en général plus facilement
@@ -179,6 +101,7 @@ class Game:
             
             # Retour à la ligne (+ marge du dessous pour la dernière ligne)
             print("")
+
         
 # Si l'OS et Python sont prêt à lancer le jeu
 if __name__ == "__main__":
