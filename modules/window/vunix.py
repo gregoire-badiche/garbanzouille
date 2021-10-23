@@ -2,7 +2,12 @@
 The UNIX version of the window module
 """
 
-from pynput.keyboard import Listener, Key
+try:
+    from pynput.keyboard import Listener, Key
+except ModuleNotFoundError:
+    print('Vous devez tout d\'abord installer le module "pynput". \nPour ce faire, utilisez la commande "pip install pynput" dans un terminal.')
+    import sys
+    sys.exit()
 import os
 import time
 
