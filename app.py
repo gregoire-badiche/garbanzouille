@@ -16,16 +16,24 @@ import sys
 # Import du module pour gérer le cross-platform
 import modules.window.window as window
 
+
+from platform import system
+
 """
 Importe tous les objets du code (on fait de la POO ici ou quoi)
 Ces objets doivent être enregistrés dans le dossier "objets", avec l'extension .py. Ils seront automatiquement détectés et importés.
 """
 
-
-sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/modules/objets')
-for i in sorted(os.listdir(os.path.dirname(os.path.abspath(__file__)) + '/modules/objets')):
-    if not i.startswith('_'):
-        exec('from modules.objets.%s import *' %(i[:-3]))
+if(system() == "Windows"):
+    sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '\modules\objets')
+    for i in sorted(os.listdir(os.path.dirname(os.path.abspath(__file__)) + '\modules\objets')):
+        if not i.startswith('_'):
+            exec('from modules.objets.%s import *' %(i[:-3]))
+else:
+    sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/modules/objets')
+    for i in sorted(os.listdir(os.path.dirname(os.path.abspath(__file__)) + '/modules/objets')):
+        if not i.startswith('_'):
+            exec('from modules.objets.%s import *' %(i[:-3]))
 
 #Définition de la classe du jeu. Définir les autres classes dans le dossier modules/objets de préférence
 class Game:
