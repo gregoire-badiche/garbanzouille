@@ -22,8 +22,8 @@ Ces objets doivent être enregistrés dans le dossier "objets", avec l'extension
 """
 
 
-sys.path.append('modules/objets')
-for i in sorted(os.listdir('modules/objets')):
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + '/modules/objets')
+for i in sorted(os.listdir(os.path.dirname(os.path.abspath(__file__)) + '/modules/objets')):
     if not i.startswith('_'):
         exec('from modules.objets.%s import *' %(i[:-3]))
 
