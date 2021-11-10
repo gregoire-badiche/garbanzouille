@@ -1,3 +1,5 @@
+# Dead project for now
+
 # garbanzouille
 
 ### A console game in Python
